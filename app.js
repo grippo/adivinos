@@ -42,6 +42,11 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.send(500, 'Something broke!');
+});
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
